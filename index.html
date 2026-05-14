@@ -1155,11 +1155,12 @@
 
 <script>
   document.addEventListener("keydown", (e) => {
-    if (e.altKey && e.key === "1") {
+    if (e.altKey && (e.code === "Digit1" || e.key === "1" || e.key === "¡")) {
+      e.preventDefault();
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
+        (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement);
       } else {
-        document.exitFullscreen();
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
       }
     }
   });
