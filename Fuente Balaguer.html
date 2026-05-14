@@ -1153,5 +1153,17 @@
   });
 </script>
 
+<script>
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey && e.key === "1") {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
