@@ -1155,7 +1155,7 @@
 
 <script>
   document.addEventListener("keydown", (e) => {
-    if (e.altKey && (e.code === "Digit1" || e.key === "1" || e.key === "¡")) {
+    if (e.code === "Digit1" || e.key === "1") {
       e.preventDefault();
       if (!document.fullscreenElement) {
         (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement);
