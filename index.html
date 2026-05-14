@@ -1154,36 +1154,39 @@
 </script>
 
 <script>
-  function toggleFullscreen() {
-    const el = document.documentElement;
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-      if (req) req.call(el);
-    } else {
-      const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
-      if (exit) exit.call(document);
-    }
-  }
+  var fsBtn;
+  window.addEventListener("DOMContentLoaded", function() {
+    fsBtn = document.getElementById("btn-fullscreen");
 
-  function updateFsButton() {
-    const btn = document.getElementById("btn-fullscreen");
-    if (!btn) return;
-    const inFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    btn.style.display = inFs ? "none" : "flex";
-  }
+    fsBtn.addEventListener("click", function() {
+      var el = document.documentElement;
+      var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+      if (!req) return;
+      var p = req.call(el);
+      if (p && p.then) {
+        p.then(function() {
+          fsBtn.style.display = "none";
+        }).catch(function() {});
+      }
+    });
 
-  document.addEventListener("fullscreenchange", updateFsButton);
-  document.addEventListener("webkitfullscreenchange", updateFsButton);
+    document.addEventListener("fullscreenchange", function() {
+      if (!document.fullscreenElement) fsBtn.style.display = "flex";
+    });
+    document.addEventListener("webkitfullscreenchange", function() {
+      if (!document.webkitFullscreenElement) fsBtn.style.display = "flex";
+    });
+  });
 
   document.addEventListener("keydown", function(e) {
     if (e.code === "Digit1" || e.key === "1") {
       e.preventDefault();
-      toggleFullscreen();
+      if (fsBtn) fsBtn.click();
     }
   });
 </script>
 
-<button id="btn-fullscreen" onclick="toggleFullscreen()" title="Pantalla completa" style="
+<button id="btn-fullscreen" title="Pantalla completa" style="
   position: fixed;
   bottom: 28px;
   left: 28px;
