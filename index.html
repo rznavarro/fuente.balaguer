@@ -1154,39 +1154,30 @@
 </script>
 
 <script>
-  var fsBtn;
-  window.addEventListener("DOMContentLoaded", function() {
-    fsBtn = document.getElementById("btn-fullscreen");
+  function entrarPantallaCompleta() {
+    var el = document.documentElement;
+    if      (el.requestFullscreen)       el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+    else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+  }
 
-    fsBtn.addEventListener("click", function() {
-      var el = document.documentElement;
-      var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-      if (!req) return;
-      var p = req.call(el);
-      if (p && p.then) {
-        p.then(function() {
-          fsBtn.style.display = "none";
-        }).catch(function() {});
-      }
-    });
-
-    document.addEventListener("fullscreenchange", function() {
-      if (!document.fullscreenElement) fsBtn.style.display = "flex";
-    });
-    document.addEventListener("webkitfullscreenchange", function() {
-      if (!document.webkitFullscreenElement) fsBtn.style.display = "flex";
+  ["fullscreenchange","webkitfullscreenchange","mozfullscreenchange","MSFullscreenChange"].forEach(function(ev) {
+    document.addEventListener(ev, function() {
+      var inFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+      document.getElementById("btn-fullscreen").style.display = inFs ? "none" : "flex";
     });
   });
 
   document.addEventListener("keydown", function(e) {
     if (e.code === "Digit1" || e.key === "1") {
       e.preventDefault();
-      if (fsBtn) fsBtn.click();
+      entrarPantallaCompleta();
     }
   });
 </script>
 
-<button id="btn-fullscreen" title="Pantalla completa" style="
+<button id="btn-fullscreen" onclick="entrarPantallaCompleta()" title="Pantalla completa" style="
   position: fixed;
   bottom: 28px;
   left: 28px;
