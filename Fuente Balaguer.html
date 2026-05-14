@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fuente Balaguer — Hamburguesas artesanales con delivery en Chile</title>
+<meta name="description" content="Pide tus hamburguesas favoritas directo desde nuestra web o app. Ingredientes frescos, carne sin congelar, delivery rápido." />
+<meta property="og:title" content="Fuente Balaguer — Hamburguesas artesanales" />
+<meta property="og:description" content="Sabor real. Sin filtros. Hamburguesas artesanales con delivery." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&q=80" />
+
+<!-- Splash thumbnail used by the standalone bundler while assets unpack -->
+<template id="__bundler_thumbnail" data-bg-color="#0A0705">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0A0705"/>
+    <!-- Burger glyph centered -->
+    <g transform="translate(600 410)">
+      <!-- top bun -->
+      <path d="M -180 -20 Q -180 -120 0 -120 Q 180 -120 180 -20 L 180 0 L -180 0 Z" fill="#E85D04"/>
+      <circle cx="-90" cy="-70" r="4" fill="#FFC233"/>
+      <circle cx="-30" cy="-90" r="4" fill="#FFC233"/>
+      <circle cx="40"  cy="-80" r="4" fill="#FFC233"/>
+      <circle cx="100" cy="-65" r="4" fill="#FFC233"/>
+      <!-- lettuce -->
+      <path d="M -190 0 Q -160 16 -130 4 Q -100 18 -70 4 Q -40 18 -10 4 Q 20 18 50 4 Q 80 18 110 4 Q 140 18 170 4 Q 195 14 200 0 Z" fill="#7CB342"/>
+      <!-- patty -->
+      <rect x="-180" y="14" width="360" height="46" rx="10" fill="#5B2A09"/>
+      <!-- cheese drips -->
+      <path d="M -180 56 L -180 84 L -140 70 L -100 88 L -60 68 L -20 88 L 20 70 L 60 86 L 100 70 L 140 88 L 180 70 L 180 56 Z" fill="#FFC233"/>
+      <!-- bottom bun -->
+      <path d="M -180 80 L 180 80 L 180 110 Q 180 150 130 150 L -130 150 Q -180 150 -180 110 Z" fill="#B8430A"/>
+    </g>
+    <text x="600" y="660" font-family="Impact, 'Bebas Neue', sans-serif" font-size="56" letter-spacing="2" text-anchor="middle" fill="#FFFFFF">FUENTE BALAGUER</text>
+    <text x="600" y="700" font-family="Inter, sans-serif" font-size="22" letter-spacing="6" text-anchor="middle" fill="#E85D04">CARGANDO SABOR…</text>
+  </svg>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.0.6/dist/index.global.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+
+<script src="image-slot.js"></script>
+
+<style>
+  :root {
+    --bg: #0A0705;
+    --bg-2: #14100B;
+    --bg-3: #1A0F00;
+    --orange: #E85D04;
+    --orange-deep: #B8430A;
+    --yellow: #FFC233;
+    --yellow-soft: #FFD66B;
+    --white: #FFFFFF;
+    --muted: rgba(255,255,255,0.62);
+    --line: rgba(255,255,255,0.10);
+  }
+  html, body { background: var(--bg); color: var(--white); }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  .font-display { font-family: 'Bebas Neue', 'Anton', Impact, sans-serif; letter-spacing: 0.01em; font-weight: 400; }
+  .font-anton   { font-family: 'Anton', 'Bebas Neue', Impact, sans-serif; letter-spacing: 0.005em; }
+  .font-gothic  { font-family: 'UnifrakturCook', serif; }
+
+  /* tighten huge display */
+  .display-hero { font-family: 'Anton', 'Bebas Neue', Impact, sans-serif; line-height: 0.88; letter-spacing: -0.005em; }
+  .display-xl   { font-family: 'Anton', 'Bebas Neue', Impact, sans-serif; line-height: 0.88; }
+  .display-md   { font-family: 'Bebas Neue', 'Anton', sans-serif; line-height: 0.94; }
+
+  /* color util */
+  .bg-bg  { background: var(--bg); }
+  .bg-bg2 { background: var(--bg-2); }
+  .bg-bg3 { background: var(--bg-3); }
+  .text-orange { color: var(--orange); }
+  .text-yellow { color: var(--yellow); }
+  .bg-orange   { background: var(--orange); }
+  .bg-yellow   { background: var(--yellow); }
+  .ring-line   { box-shadow: inset 0 0 0 1px var(--line); }
+
+  /* Grain overlay */
+  .grain::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Buttons */
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 700; letter-spacing: 0.02em; transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease; will-change: transform; }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-primary:hover { background: #ff6b14; transform: translateY(-1px); box-shadow: 0 10px 30px -10px rgba(232,93,4,0.6); }
+  .btn-ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.55); }
+  .btn-ghost:hover { background: #fff; color: #0A0705; }
+  .btn-yellow { background: var(--yellow); color: #0A0705; }
+  .btn-yellow:hover { background: #ffd055; transform: translateY(-1px); box-shadow: 0 10px 30px -10px rgba(255,194,51,0.6); }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.65,.2,1), transform .8s cubic-bezier(.2,.65,.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.65,.2,1), transform .7s cubic-bezier(.2,.65,.2,1); }
+  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0ms; }
+  .reveal-stagger.in > *:nth-child(2) { transition-delay: 80ms; }
+  .reveal-stagger.in > *:nth-child(3) { transition-delay: 160ms; }
+  .reveal-stagger.in > *:nth-child(4) { transition-delay: 240ms; }
+  .reveal-stagger.in > *:nth-child(5) { transition-delay: 320ms; }
+  .reveal-stagger.in > *:nth-child(6) { transition-delay: 400ms; }
+  .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+
+  /* hero text spring */
+  @keyframes springUp {
+    0%   { opacity: 0; transform: translateY(60px) scale(.985); }
+    60%  { opacity: 1; transform: translateY(-6px) scale(1.003); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .spring-in { animation: springUp .9s cubic-bezier(.2,.8,.25,1) both; }
+  .delay-1 { animation-delay: .12s; }
+  .delay-2 { animation-delay: .26s; }
+  .delay-3 { animation-delay: .42s; }
+  .delay-4 { animation-delay: .58s; }
+
+  /* Blink dot */
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+  .blink { animation: blink 1.6s ease-in-out infinite; }
+  @keyframes pulseRing {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+    70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+  }
+  .pulse-ring { animation: pulseRing 1.8s ease-out infinite; }
+
+  /* Nav scrolled */
+  #nav { transition: background .25s ease, backdrop-filter .25s ease, border-color .25s ease; }
+  #nav.scrolled { background: rgba(10,7,5,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+
+  /* Card hover */
+  .menu-card { transition: transform .35s ease, box-shadow .35s ease; }
+  .menu-card:hover { transform: translateY(-6px); }
+  .menu-card .img-wrap img,
+  .menu-card .img-wrap .img-fake { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .menu-card:hover .img-wrap img,
+  .menu-card:hover .img-wrap .img-fake { transform: scale(1.07); }
+
+  /* Marquee */
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-track { display: flex; gap: 4rem; animation: marquee 38s linear infinite; }
+
+  /* Painted burger fallback (used when an image fails to load gracefully) */
+  .img-fake {
+    width: 100%; height: 100%; display: block;
+    background:
+      radial-gradient(120% 80% at 50% 35%, #ffb35a 0%, #e8761e 35%, #5b2a09 70%, #1b0a02 100%),
+      #1a0f04;
+  }
+
+  /* Sticky CTA mobile */
+  .sticky-cta {
+    position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 60;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--orange); color: white; padding: 14px 18px; border-radius: 14px;
+    box-shadow: 0 18px 40px -10px rgba(232,93,4,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+    font-weight: 700; letter-spacing: 0.02em;
+  }
+  @media (min-width: 768px) { .sticky-cta { display: none; } }
+
+  /* Floating WA */
+  .fab-wa {
+    position: fixed; right: 18px; bottom: 18px; z-index: 70;
+    width: 56px; height: 56px; border-radius: 999px;
+    background: #25D366; color: #073320; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 14px 30px -8px rgba(37,211,102,0.5);
+    transition: transform .2s ease;
+  }
+  .fab-wa:hover { transform: scale(1.06); }
+  @media (max-width: 767px) { .fab-wa { bottom: 80px; } }
+
+  /* Hide scrollbar in horizontal scrollers */
+  .hide-scroll::-webkit-scrollbar { display: none; }
+  .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Gallery items hover */
+  .gal-item { overflow: hidden; }
+  .gal-item img, .gal-item .img-fake { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .gal-item:hover img, .gal-item:hover .img-fake { transform: scale(1.06); }
+
+  /* Mobile nav drawer */
+  .drawer { transform: translateX(100%); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .drawer.open { transform: translateX(0); }
+
+  /* Underline link */
+  .nav-link { position: relative; }
+  .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+  .nav-link:hover::after { transform: scaleX(1); }
+
+  /* Hero video — subtle scale to keep movement feeling cinematic */
+  .hero-video { filter: saturate(1.08) contrast(1.04); }
+  @keyframes heroFloat {
+    0%   { transform: scale(1.04); }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1.04); }
+  }
+  .hero-video { animation: heroFloat 22s ease-in-out infinite; }
+
+  /* phone mockup */
+  .phone-bezel {
+    background: linear-gradient(180deg, #1a1a1a 0%, #050505 100%);
+    border-radius: 44px; padding: 10px;
+    box-shadow: 0 50px 100px -30px rgba(232,93,4,0.35), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .phone-screen { border-radius: 34px; overflow: hidden; background: #0A0705; aspect-ratio: 9/19; position: relative; }
+
+  /* Yellow underline accent text */
+  .accent-stripe { background: linear-gradient(180deg, transparent 60%, rgba(255,194,51,0.85) 60%, rgba(255,194,51,0.85) 92%, transparent 92%); padding: 0 0.1em; }
+
+  /* Tag chip */
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;
+    border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--line);
+    font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85);
+  }
+
+  /* Form input */
+  .field {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+    color: #fff; padding: 14px 16px; border-radius: 12px; font-size: 15px;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .field::placeholder { color: rgba(255,255,255,0.4); }
+  .field:focus { outline: none; border-color: var(--orange); background: rgba(232,93,4,0.05); }
+
+  /* Star color */
+  .star { color: #FFC233; }
+
+  /* Section number tag */
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 10px; color: var(--orange);
+    font-weight: 700; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .section-tag::before { content: ""; width: 28px; height: 2px; background: var(--orange); display: inline-block; }
+
+  /* Ticker */
+  .price-tag { font-family: 'Anton', sans-serif; letter-spacing: -0.005em; }
+
+  /* Diagonal stripe band */
+  .stripe-band {
+    background:
+      repeating-linear-gradient(
+        135deg,
+        rgba(232,93,4,1) 0px, rgba(232,93,4,1) 28px,
+        rgba(15,9,4,1) 28px, rgba(15,9,4,1) 56px
+      );
+  }
+
+  /* image-slot defaults */
+  image-slot {
+    --image-slot-bg: #15100A;
+    --image-slot-border: rgba(255,255,255,0.12);
+    --image-slot-text: rgba(255,255,255,0.55);
+  }
+
+  /* selection */
+  ::selection { background: var(--orange); color: #fff; }
+</style>
+</head>
+<body class="bg-bg text-white selection:bg-orange">
+
+<!-- =========================== NAVBAR =========================== -->
+<nav id="nav" data-screen-label="Nav" class="fixed top-0 inset-x-0 z-50 border-b border-transparent">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12 h-[72px] md:h-[80px] flex items-center justify-between gap-6">
+    <!-- Logo -->
+    <a href="#top" class="flex items-center gap-3 shrink-0">
+      <span class="w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden bg-black flex items-center justify-center ring-1 ring-white/15">
+        <img src="assets/logo.jpg" alt="Fuente Balaguer" class="w-full h-full object-cover" />
+      </span>
+      <span class="hidden sm:flex flex-col leading-none">
+        <span class="font-gothic text-[18px] md:text-[20px] text-orange leading-none">Fuente</span>
+        <span class="font-gothic text-[18px] md:text-[20px] text-orange leading-none -mt-0.5">Balaguer</span>
+      </span>
+    </a>
+
+    <!-- Center links -->
+    <ul class="hidden lg:flex items-center gap-9 text-[14px] font-medium text-white/90">
+      <li><a class="nav-link" href="#menu">Menú</a></li>
+      <li><a class="nav-link" href="#combos">Combos</a></li>
+      <li><a class="nav-link" href="#nosotros">Nosotros</a></li>
+      <li><a class="nav-link" href="#contacto">Contacto</a></li>
+    </ul>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-3">
+      <!-- Abierto ahora -->
+      <div class="hidden md:flex items-center gap-2 px-3 py-2 rounded-full bg-white/[0.04] ring-line">
+        <span class="relative flex items-center justify-center">
+          <span class="w-2 h-2 rounded-full bg-green-500 pulse-ring"></span>
+          <span class="absolute w-2 h-2 rounded-full bg-green-400 blink"></span>
+        </span>
+        <span class="text-[12px] font-semibold tracking-wide uppercase text-white/85">Abierto ahora</span>
+      </div>
+
+      <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-lg px-4 md:px-5 py-2.5 text-sm md:text-[13px] uppercase">
+        Pedir ahora
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="lg:hidden w-11 h-11 rounded-lg ring-line flex items-center justify-center" aria-label="Abrir menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="drawer" class="drawer fixed top-0 right-0 bottom-0 z-[60] w-[80%] max-w-[340px] bg-bg2 ring-line lg:hidden">
+  <div class="p-5 flex items-center justify-between border-b border-white/10">
+    <span class="font-gothic text-orange text-2xl">Fuente Balaguer</span>
+    <button id="drawer-close" class="w-10 h-10 rounded-lg ring-line flex items-center justify-center" aria-label="Cerrar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <ul class="flex flex-col p-2 text-lg font-medium">
+    <li><a href="#menu" class="block px-4 py-4 hover:text-orange">Menú</a></li>
+    <li><a href="#combos" class="block px-4 py-4 hover:text-orange">Combos</a></li>
+    <li><a href="#nosotros" class="block px-4 py-4 hover:text-orange">Nosotros</a></li>
+    <li><a href="#contacto" class="block px-4 py-4 hover:text-orange">Contacto</a></li>
+  </ul>
+  <div class="p-5">
+    <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-lg w-full py-3.5 uppercase">Pedir ahora</a>
+  </div>
+</div>
+<div id="drawer-bg" class="hidden fixed inset-0 bg-black/60 z-[55] lg:hidden"></div>
+
+
+<!-- =========================== HERO =========================== -->
+<header id="top" data-screen-label="01 Hero" class="relative min-h-[100svh] flex items-center overflow-hidden grain">
+  <!-- background video -->
+  <div class="absolute inset-0">
+    <div class="img-fake absolute inset-0"></div>
+    <video
+      class="absolute inset-0 w-full h-full object-cover hero-video"
+      src="assets/hero.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1800&q=85"
+    ></video>
+    <!-- Vignette / readable overlay -->
+    <div class="absolute inset-0 pointer-events-none" style="background:
+      radial-gradient(80% 60% at 75% 50%, rgba(0,0,0,0) 0%, rgba(10,7,5,0.45) 60%, rgba(10,7,5,0.9) 100%),
+      linear-gradient(180deg, rgba(10,7,5,0.55) 0%, rgba(10,7,5,0.15) 40%, rgba(10,7,5,0.92) 100%),
+      linear-gradient(90deg, rgba(10,7,5,0.88) 0%, rgba(10,7,5,0.35) 45%, rgba(10,7,5,0) 70%)"></div>
+  </div>
+
+  <div class="relative max-w-[1320px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-28 md:pt-32 pb-20 grid lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-7">
+      <div class="spring-in delay-1 inline-flex items-center gap-2 px-3 py-1.5 rounded-full ring-line bg-white/[0.04] mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-orange"></span>
+        <span class="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80">Carrito artesanal · Santiago</span>
+      </div>
+
+      <h1 class="display-hero spring-in delay-2 text-[68px] sm:text-[96px] md:text-[120px] lg:text-[148px] uppercase">
+        Sabor real.<br/>
+        <span class="text-orange">Sin filtros.</span>
+      </h1>
+
+      <p class="spring-in delay-3 mt-6 text-[16px] md:text-[19px] text-white/75 max-w-xl leading-relaxed">
+        La burger que necesitabas. Hamburguesas artesanales con ingredientes frescos
+        <span class="text-white">·</span> Delivery a tu puerta en 30–45 min.
+      </p>
+
+      <div class="spring-in delay-4 mt-9 flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-xl px-7 py-4 text-[15px] uppercase">
+          Pedir ahora
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#menu" class="btn btn-ghost rounded-xl px-7 py-4 text-[15px] uppercase">
+          Ver menú
+        </a>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="spring-in delay-4 mt-12 flex flex-wrap gap-x-7 gap-y-3 items-center">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-full bg-orange/15 ring-1 ring-orange/30 flex items-center justify-center text-orange">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1.5 2 1.5 4 0 6m4-4c1 2 .5 4-1 5.5M8 4c-1 2-.5 4 1 5.5M5 11h14l-1.5 9a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7L5 11z"/></svg>
+          </span>
+          <div class="text-[13px] font-semibold uppercase tracking-wider">Ingredientes frescos</div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-full bg-orange/15 ring-1 ring-orange/30 flex items-center justify-center text-orange">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11l2 3h5v6h-2a2.5 2.5 0 1 1-5 0H8a2.5 2.5 0 1 1-5 0V8z"/></svg>
+          </span>
+          <div class="text-[13px] font-semibold uppercase tracking-wider">Delivery rápido</div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-full bg-orange/15 ring-1 ring-orange/30 flex items-center justify-center text-orange">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></svg>
+          </span>
+          <div class="text-[13px] font-semibold uppercase tracking-wider">App disponible</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side floating accent: price ribbon -->
+    <div class="hidden lg:flex lg:col-span-5 justify-end items-center">
+      <div class="spring-in delay-3 relative w-[360px]">
+        <div class="absolute -top-3 -left-3 px-3 py-1.5 rounded-md bg-yellow text-black text-[11px] font-bold uppercase tracking-widest rotate-[-4deg]">Top seller</div>
+        <div class="rounded-2xl ring-line bg-black/40 backdrop-blur-md p-5 grain relative overflow-hidden">
+          <div class="aspect-[4/3] rounded-xl overflow-hidden mb-4 relative">
+            <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?w=900&q=80" alt="Doble Fuego" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="img-fake absolute inset-0 -z-10"></div>
+          </div>
+          <div class="flex items-end justify-between">
+            <div>
+              <div class="text-[11px] tracking-[0.25em] uppercase text-orange font-bold">Hoy</div>
+              <div class="display-md text-3xl mt-1">La Doble Fuego</div>
+              <div class="text-white/60 text-[13px] mt-1">Doble carne · cheddar · jalapeño</div>
+            </div>
+            <div class="text-right">
+              <div class="price-tag text-yellow text-[36px] leading-none">$8.990</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/55 text-[11px] uppercase tracking-[0.3em] flex flex-col items-center gap-2">
+    <span>Scroll</span>
+    <span class="w-px h-7 bg-white/30"></span>
+  </div>
+</header>
+
+
+<!-- =========================== SOCIAL PROOF =========================== -->
+<section data-screen-label="02 Social proof" class="relative bg-bg3 border-y border-white/[0.06]">
+  <div class="absolute inset-0 opacity-50" style="background: radial-gradient(60% 80% at 50% 50%, rgba(232,93,4,0.15), transparent 70%);"></div>
+  <div class="relative max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12 py-14 md:py-20">
+    <div class="reveal-stagger grid grid-cols-2 md:grid-cols-4 gap-y-10 md:divide-x md:divide-white/10 text-center">
+      <div class="px-3 md:px-6">
+        <div class="display-xl text-[58px] md:text-[80px] text-yellow">500<span class="text-orange">+</span></div>
+        <div class="mt-1 text-[11px] md:text-[13px] uppercase tracking-[0.22em] text-white/70 font-semibold">Pedidos mensuales</div>
+      </div>
+      <div class="px-3 md:px-6">
+        <div class="display-xl text-[58px] md:text-[80px] text-yellow flex items-baseline justify-center gap-2">
+          4.8
+          <svg class="inline" width="34" height="34" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+        </div>
+        <div class="mt-1 text-[11px] md:text-[13px] uppercase tracking-[0.22em] text-white/70 font-semibold">Estrellas en Google</div>
+      </div>
+      <div class="px-3 md:px-6">
+        <div class="display-xl text-[58px] md:text-[80px] text-yellow">30<span class="text-orange">–</span>45'</div>
+        <div class="mt-1 text-[11px] md:text-[13px] uppercase tracking-[0.22em] text-white/70 font-semibold">Delivery a tu puerta</div>
+      </div>
+      <div class="px-3 md:px-6">
+        <div class="display-xl text-[58px] md:text-[80px] text-yellow">+2 <span class="text-[36px] md:text-[52px] text-white/70 font-anton">años</span></div>
+        <div class="mt-1 text-[11px] md:text-[13px] uppercase tracking-[0.22em] text-white/70 font-semibold">En el mercado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== MENU =========================== -->
+<section id="menu" data-screen-label="03 Menú" class="relative py-20 md:py-28">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+      <div>
+        <div class="section-tag mb-5">Menú · Lo más pedido</div>
+        <h2 class="display-xl text-[56px] md:text-[88px] uppercase">Lo más <span class="text-orange">pedido</span></h2>
+        <p class="text-white/60 mt-3 max-w-md">Los favoritos de nuestros clientes — recetas propias, hechas con cariño y carne fresca cada día.</p>
+      </div>
+      <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="hidden md:inline-flex btn btn-ghost rounded-xl px-6 py-3 uppercase text-[13px] self-start md:self-auto">
+        Ver carta completa
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <!-- Grid desktop / horizontal scroll mobile -->
+    <div class="reveal-stagger flex md:grid md:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible hide-scroll snap-x snap-mandatory pb-2 -mx-5 px-5 md:mx-0 md:px-0">
+      <!-- Card 1 -->
+      <article class="menu-card snap-center shrink-0 w-[82%] md:w-auto rounded-2xl bg-bg2 ring-line overflow-hidden">
+        <div class="img-wrap relative aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=900&q=80" alt="La Clásica" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="img-fake absolute inset-0 -z-10"></div>
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-yellow text-black text-[10px] font-bold uppercase tracking-wider">Más popular</span>
+        </div>
+        <div class="p-5 md:p-6">
+          <div class="flex items-start justify-between gap-4">
+            <h3 class="display-md text-3xl md:text-[32px] leading-none">La Clásica</h3>
+            <div class="price-tag text-yellow text-[30px] leading-none whitespace-nowrap">$5.990</div>
+          </div>
+          <p class="text-white/60 text-[14px] mt-2.5 leading-relaxed">Carne 180g, cheddar derretido, lechuga, tomate, pepinillos y nuestra salsa secreta sobre pan artesanal.</p>
+          <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-lg w-full mt-5 py-3 text-[13px] uppercase">
+            Agregar al pedido
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="menu-card snap-center shrink-0 w-[82%] md:w-auto rounded-2xl bg-bg2 ring-line overflow-hidden">
+        <div class="img-wrap relative aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?w=900&q=80" alt="La Doble Fuego" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="img-fake absolute inset-0 -z-10"></div>
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-orange text-white text-[10px] font-bold uppercase tracking-wider">Nuevo</span>
+        </div>
+        <div class="p-5 md:p-6">
+          <div class="flex items-start justify-between gap-4">
+            <h3 class="display-md text-3xl md:text-[32px] leading-none">La Doble Fuego</h3>
+            <div class="price-tag text-yellow text-[30px] leading-none whitespace-nowrap">$8.990</div>
+          </div>
+          <p class="text-white/60 text-[14px] mt-2.5 leading-relaxed">Doble carne, cheddar fundido, jalapeños frescos, cebolla caramelizada y mayo de chipotle. Pica rico.</p>
+          <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-lg w-full mt-5 py-3 text-[13px] uppercase">
+            Agregar al pedido
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="menu-card snap-center shrink-0 w-[82%] md:w-auto rounded-2xl bg-bg2 ring-line overflow-hidden">
+        <div class="img-wrap relative aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=900&q=80" alt="La BBQ Master" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="img-fake absolute inset-0 -z-10"></div>
+        </div>
+        <div class="p-5 md:p-6">
+          <div class="flex items-start justify-between gap-4">
+            <h3 class="display-md text-3xl md:text-[32px] leading-none">La BBQ Master</h3>
+            <div class="price-tag text-yellow text-[30px] leading-none whitespace-nowrap">$7.490</div>
+          </div>
+          <p class="text-white/60 text-[14px] mt-2.5 leading-relaxed">Carne 180g, tocino crocante, cebolla a la parrilla, queso ahumado y salsa BBQ casera de la casa.</p>
+          <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-lg w-full mt-5 py-3 text-[13px] uppercase">
+            Agregar al pedido
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== COMBOS =========================== -->
+<section id="combos" data-screen-label="04 Combos" class="relative overflow-hidden bg-bg3">
+  <div class="absolute inset-0" style="background: radial-gradient(50% 70% at 80% 50%, rgba(232,93,4,0.28), transparent 70%), radial-gradient(40% 60% at 10% 100%, rgba(184,67,10,0.25), transparent 70%);"></div>
+  <div class="absolute top-0 left-0 right-0 h-1 stripe-band"></div>
+
+  <div class="relative max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12 py-20 md:py-28 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+    <!-- text side -->
+    <div class="lg:col-span-7 reveal">
+      <div class="section-tag mb-5">Oferta · Por tiempo limitado</div>
+      <h2 class="display-xl text-[56px] md:text-[92px] lg:text-[104px] uppercase leading-[0.9]">
+        Combo <span class="text-orange">Balaguer</span>
+        <span class="block text-white/70 text-[26px] md:text-[34px] mt-3 font-anton tracking-normal">Para dos personas — para compartir, o no.</span>
+      </h2>
+
+      <ul class="mt-7 space-y-3 text-[16px] md:text-[18px] text-white/85">
+        <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-orange/20 ring-1 ring-orange/40 text-orange flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span> 2 burgers a elección</li>
+        <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-orange/20 ring-1 ring-orange/40 text-orange flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span> 2 papas fritas grandes</li>
+        <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-orange/20 ring-1 ring-orange/40 text-orange flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span> 2 bebidas heladas</li>
+      </ul>
+
+      <!-- Price -->
+      <div class="mt-9 flex items-end gap-5 flex-wrap">
+        <div>
+          <div class="text-[13px] uppercase tracking-[0.25em] text-white/55 mb-1">Antes</div>
+          <div class="price-tag text-3xl md:text-4xl text-white/45 line-through decoration-orange decoration-[3px]">$18.980</div>
+        </div>
+        <div>
+          <div class="text-[13px] uppercase tracking-[0.25em] text-yellow mb-1">Ahora</div>
+          <div class="price-tag text-yellow text-[80px] md:text-[110px] leading-[0.85]">$14.990</div>
+        </div>
+        <div class="ml-1 mb-2 px-3 py-1.5 rounded-md bg-orange text-white text-[11px] font-bold uppercase tracking-widest rotate-[-3deg]">Ahorra $3.990</div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="mt-9 flex items-center gap-3">
+        <div class="text-[12px] uppercase tracking-[0.22em] text-white/55 font-semibold">Termina en</div>
+        <div id="countdown" class="flex items-center gap-1.5">
+          <span class="cd-box"></span>
+          <span class="text-orange font-bold">:</span>
+          <span class="cd-box"></span>
+          <span class="text-orange font-bold">:</span>
+          <span class="cd-box"></span>
+        </div>
+      </div>
+
+      <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-yellow rounded-xl px-8 py-4.5 mt-9 text-[15px] uppercase">
+        Quiero este combo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <!-- visual side -->
+    <div class="lg:col-span-5 reveal">
+      <div class="relative">
+        <div class="absolute -inset-6 bg-orange/20 rounded-3xl blur-3xl"></div>
+        <div class="relative rounded-2xl overflow-hidden ring-line bg-black/40 aspect-[4/5]">
+          <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=1000&q=85" alt="Combo Balaguer" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="img-fake absolute inset-0 -z-10"></div>
+          <!-- Sticker -->
+          <div class="absolute top-5 right-5 w-28 h-28 rounded-full bg-yellow text-black flex flex-col items-center justify-center text-center rotate-[8deg] shadow-2xl">
+            <div class="text-[11px] uppercase tracking-widest font-bold">Combo</div>
+            <div class="display-md text-3xl leading-none -mt-0.5">2x1</div>
+            <div class="text-[10px] uppercase tracking-widest font-bold">Sabor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0 h-1 stripe-band"></div>
+</section>
+
+<style>
+  .cd-box {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 46px; height: 52px; background: rgba(0,0,0,0.55); border: 1px solid var(--line);
+    border-radius: 10px; font-family: 'Anton', sans-serif; font-size: 26px; color: #fff;
+  }
+</style>
+
+
+<!-- =========================== DIFERENCIADORES =========================== -->
+<section id="nosotros" data-screen-label="05 Diferenciadores" class="relative py-20 md:py-28">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12">
+    <div class="reveal max-w-2xl">
+      <div class="section-tag mb-5">Nosotros · Por qué Fuente Balaguer</div>
+      <h2 class="display-xl text-[48px] md:text-[80px] uppercase leading-[0.92]">
+        No somos una <span class="text-orange">cadena.</span><br/>
+        Somos una <span class="accent-stripe text-black">obsesión.</span>
+      </h2>
+    </div>
+
+    <div class="reveal-stagger grid md:grid-cols-3 gap-5 md:gap-6 mt-14">
+      <div class="bg-bg2 ring-line rounded-2xl p-7 md:p-8">
+        <div class="w-14 h-14 rounded-xl bg-orange/15 ring-1 ring-orange/30 text-orange flex items-center justify-center mb-6">
+          <!-- meat icon -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13c0-4 3-8 8-8s8 4 8 8c0 1.5-1 3-2.5 3.5-1 .3-1.5 1-1.5 2v.3c0 1.2-1 2.2-2.2 2.2H8.2C7 21 6 20 6 18.8V18c0-1-.6-1.7-1.5-2C3 15.5 4 14.5 4 13z"/><circle cx="9.5" cy="12" r="1.1"/><circle cx="14" cy="10.5" r="0.9"/></svg>
+        </div>
+        <h3 class="display-md text-[28px] md:text-[32px] leading-tight">Carne fresca,<br/>nunca congelada</h3>
+        <p class="mt-3 text-white/65 leading-relaxed text-[15px]">Trabajamos solo con carne de vacuno fresco, sin conservantes, molida el mismo día.</p>
+      </div>
+
+      <div class="bg-bg2 ring-line rounded-2xl p-7 md:p-8">
+        <div class="w-14 h-14 rounded-xl bg-orange/15 ring-1 ring-orange/30 text-orange flex items-center justify-center mb-6">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 6 6.4.5-4.9 4.2 1.6 6.3L12 16.8 6.3 20l1.6-6.3L3 9.5 9.4 9 12 3z"/></svg>
+        </div>
+        <h3 class="display-md text-[28px] md:text-[32px] leading-tight">Receta propia,<br/>salsa secreta</h3>
+        <p class="mt-3 text-white/65 leading-relaxed text-[15px]">Salsas hechas en casa que no encontrarás en ningún otro lugar. Esa es la mitad del sabor.</p>
+      </div>
+
+      <div class="bg-bg2 ring-line rounded-2xl p-7 md:p-8">
+        <div class="w-14 h-14 rounded-xl bg-orange/15 ring-1 ring-orange/30 text-orange flex items-center justify-center mb-6">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11l2 3h5v6h-2a2.5 2.5 0 1 1-5 0H8a2.5 2.5 0 1 1-5 0V8z"/><circle cx="6.5" cy="17" r="1.6"/><circle cx="15.5" cy="17" r="1.6"/></svg>
+        </div>
+        <h3 class="display-md text-[28px] md:text-[32px] leading-tight">Pedido directo,<br/>sin intermediarios</h3>
+        <p class="mt-3 text-white/65 leading-relaxed text-[15px]">Evita las comisiones de terceros pidiendo directo por nuestra app o sitio. Nos ayudas a seguir creciendo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== FOOD PORN GALLERY =========================== -->
+<section data-screen-label="06 Galería" class="relative py-20 md:py-28 bg-bg2">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12">
+    <div class="reveal flex items-end justify-between mb-10 md:mb-14">
+      <div>
+        <div class="section-tag mb-5">Galería · Food porn</div>
+        <h2 class="display-xl text-[48px] md:text-[80px] uppercase leading-[0.92]">El antojo <span class="text-orange">es real.</span></h2>
+      </div>
+      <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="hidden md:inline-flex btn btn-ghost rounded-xl px-5 py-3 uppercase text-[13px]">Ver más</a>
+    </div>
+
+    <!-- Desktop masonry grid -->
+    <div class="reveal-stagger hidden md:grid grid-cols-4 grid-rows-2 gap-4 h-[640px]">
+      <div class="gal-item relative rounded-xl overflow-hidden col-span-2 row-span-2">
+        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=1200&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+    </div>
+
+    <!-- Mobile horizontal scroll -->
+    <div class="reveal-stagger md:hidden flex gap-3 overflow-x-auto hide-scroll snap-x snap-mandatory -mx-5 px-5 pb-2">
+      <div class="gal-item relative rounded-xl overflow-hidden shrink-0 w-[78%] aspect-[4/5] snap-center">
+        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden shrink-0 w-[78%] aspect-[4/5] snap-center">
+        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden shrink-0 w-[78%] aspect-[4/5] snap-center">
+        <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+      <div class="gal-item relative rounded-xl overflow-hidden shrink-0 w-[78%] aspect-[4/5] snap-center">
+        <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=900&q=85" class="w-full h-full object-cover absolute inset-0" alt="" onerror="this.style.display='none'" />
+        <div class="img-fake absolute inset-0 -z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== REVIEWS =========================== -->
+<section data-screen-label="07 Reseñas" class="relative py-20 md:py-28 bg-[#F7F4EE] text-[#1A0F00]">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12">
+    <div class="reveal max-w-2xl">
+      <div class="inline-flex items-center gap-2 mb-5">
+        <span class="w-7 h-px bg-orange"></span>
+        <span class="text-[12px] font-bold uppercase tracking-[0.22em] text-orange">Reseñas reales · Google + Instagram</span>
+      </div>
+      <h2 class="display-xl text-[48px] md:text-[80px] uppercase leading-[0.92] text-[#1A0F00]">Lo que dice <span class="text-orange">la gente.</span></h2>
+    </div>
+
+    <div class="reveal-stagger grid md:grid-cols-3 gap-5 md:gap-6 mt-12">
+      <!-- Review 1 -->
+      <article class="bg-white rounded-2xl p-7 shadow-[0_20px_60px_-25px_rgba(0,0,0,0.15)] border border-black/[0.06]">
+        <div class="flex gap-1 mb-4 text-yellow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+        </div>
+        <p class="text-[18px] leading-snug font-medium">"La mejor burger que he comido en mucho tiempo. El pan artesanal hace toda la diferencia."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-orange to-yellow flex items-center justify-center text-white font-bold">CS</div>
+          <div>
+            <div class="font-bold">Camila S.</div>
+            <div class="text-[12px] text-black/55">@camis_eats · Google</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Review 2 -->
+      <article class="bg-white rounded-2xl p-7 shadow-[0_20px_60px_-25px_rgba(0,0,0,0.15)] border border-black/[0.06]">
+        <div class="flex gap-1 mb-4 text-yellow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+        </div>
+        <p class="text-[18px] leading-snug font-medium">"La Doble Fuego es brutal. Llegó caliente, súper bien empacada, y el sabor a la altura."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#1A0F00] to-orange flex items-center justify-center text-white font-bold">DR</div>
+          <div>
+            <div class="font-bold">Diego R.</div>
+            <div class="text-[12px] text-black/55">@drburger · Google</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Review 3 -->
+      <article class="bg-white rounded-2xl p-7 shadow-[0_20px_60px_-25px_rgba(0,0,0,0.15)] border border-black/[0.06]">
+        <div class="flex gap-1 mb-4 text-yellow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC233"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+        </div>
+        <p class="text-[18px] leading-snug font-medium">"Pido cada semana. Las papas son tan buenas como la hamburguesa. Recomiendo el combo para dos."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-yellow to-orange flex items-center justify-center text-white font-bold">VM</div>
+          <div>
+            <div class="font-bold">Valentina M.</div>
+            <div class="text-[12px] text-black/55">@valenfoodie · Instagram</div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="reveal mt-10 text-center">
+      <a href="https://www.google.com/maps" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1A0F00] text-white font-bold uppercase tracking-wider text-[13px]">
+        Ver todas las reseñas en Google
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== APP =========================== -->
+<section data-screen-label="08 App" class="relative py-20 md:py-28 overflow-hidden">
+  <div class="absolute inset-0" style="background: radial-gradient(50% 70% at 80% 30%, rgba(232,93,4,0.22), transparent 60%), radial-gradient(40% 60% at 5% 80%, rgba(255,194,51,0.12), transparent 65%);"></div>
+
+  <div class="relative max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7 reveal">
+      <div class="section-tag mb-5">App · iOS + Android</div>
+      <h2 class="display-xl text-[52px] md:text-[88px] lg:text-[100px] uppercase leading-[0.9]">
+        Pide desde tu <span class="text-orange">celular.</span>
+      </h2>
+      <p class="text-white/70 text-[17px] md:text-[19px] mt-6 max-w-xl leading-relaxed">
+        Guarda tus pedidos favoritos, paga más rápido y recibe notificaciones de ofertas exclusivas para usuarios de la app.
+      </p>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="https://apps.apple.com/us/app/yummy-sabroso/id1626767006" target="_blank" rel="noopener"
+           class="group inline-flex items-center gap-3 bg-black ring-1 ring-white/20 hover:ring-white/40 rounded-xl px-5 py-3 transition">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.5 12.5c0-2.6 2.1-3.8 2.2-3.9-1.2-1.7-3-2-3.7-2-1.6-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.3 1-4.1 2.5-1.8 3-.5 7.6 1.2 10 .9 1.2 1.9 2.5 3.2 2.5 1.3-.1 1.8-.8 3.4-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.2 3.2-2.4.7-.9 1-1.4 1.7-2.5-3.4-1.3-3.4-3.7-3.4-3.3zM15 4.8c.7-.8 1.2-2 1.1-3.2-1 0-2.2.7-3 1.5-.6.7-1.2 1.9-1.1 3 1.2.1 2.3-.6 3-1.3z"/></svg>
+          <div class="text-left">
+            <div class="text-[10px] uppercase tracking-wider text-white/60">Descargar en</div>
+            <div class="text-white font-bold text-[16px] leading-tight">App Store</div>
+          </div>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.mercat.yummy" target="_blank" rel="noopener"
+           class="group inline-flex items-center gap-3 bg-black ring-1 ring-white/20 hover:ring-white/40 rounded-xl px-5 py-3 transition">
+          <svg width="26" height="28" viewBox="0 0 24 24">
+            <path fill="#34A853" d="M3.6 2.6C3.2 3 3 3.6 3 4.4v15.2c0 .8.2 1.4.6 1.8l.1.1L12.3 13v-.1L3.6 2.6z"/>
+            <path fill="#FBBC04" d="M15.3 16l-3-3v-.1l3-3 .1.1 3.6 2c1 .6 1 1.6 0 2.2l-3.7 1.8z"/>
+            <path fill="#EA4335" d="M15.4 16l-3.1-3.1L3.6 21.4c.4.4 1 .4 1.7 0L15.4 16"/>
+            <path fill="#4285F4" d="M15.4 8L5.3 2.6c-.7-.4-1.3-.4-1.7 0L12.3 13l3.1-3z"/>
+          </svg>
+          <div class="text-left">
+            <div class="text-[10px] uppercase tracking-wider text-white/60">Disponible en</div>
+            <div class="text-white font-bold text-[16px] leading-tight">Google Play</div>
+          </div>
+        </a>
+      </div>
+
+      <ul class="mt-10 grid sm:grid-cols-3 gap-4">
+        <li class="flex items-start gap-3 text-[14px] text-white/80">
+          <span class="w-8 h-8 rounded-lg bg-yellow/15 ring-1 ring-yellow/30 text-yellow flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.5l7.1-.6L12 2z"/></svg></span>
+          <span><strong class="text-white block">Favoritos</strong> Repite pedidos en 2 toques.</span>
+        </li>
+        <li class="flex items-start gap-3 text-[14px] text-white/80">
+          <span class="w-8 h-8 rounded-lg bg-yellow/15 ring-1 ring-yellow/30 text-yellow flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg></span>
+          <span><strong class="text-white block">Pago rápido</strong> Guarda tu método favorito.</span>
+        </li>
+        <li class="flex items-start gap-3 text-[14px] text-white/80">
+          <span class="w-8 h-8 rounded-lg bg-yellow/15 ring-1 ring-yellow/30 text-yellow flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 6 3 6 3 8H3c0-2 3-2 3-8z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+          <span><strong class="text-white block">Ofertas exclusivas</strong> Solo para usuarios app.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- phone mockup -->
+    <div class="lg:col-span-5 reveal flex justify-center">
+      <div class="phone-bezel w-[270px] md:w-[300px] rotate-[-3deg]">
+        <div class="phone-screen">
+          <!-- status bar -->
+          <div class="absolute top-0 inset-x-0 px-5 pt-3 flex items-center justify-between text-[10px] text-white/70 z-10">
+            <span class="font-bold">9:41</span>
+            <span class="flex items-center gap-1">
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><rect x="0" y="6" width="2" height="4" rx="0.5"/><rect x="4" y="4" width="2" height="6" rx="0.5"/><rect x="8" y="2" width="2" height="8" rx="0.5"/><rect x="12" y="0" width="2" height="10" rx="0.5"/></svg>
+              <svg width="14" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/></svg>
+              <svg width="20" height="10" viewBox="0 0 24 14"><rect x="0.5" y="0.5" width="20" height="13" rx="3" fill="none" stroke="white" opacity="0.6"/><rect x="2" y="2" width="15" height="10" rx="1.5" fill="white"/></svg>
+            </span>
+          </div>
+          <!-- screen content -->
+          <div class="absolute inset-0 pt-12 pb-3 px-3 flex flex-col">
+            <!-- header -->
+            <div class="flex items-center justify-between px-2 mb-3">
+              <div class="font-gothic text-orange text-lg leading-none">Fuente<br/>Balaguer</div>
+              <div class="w-8 h-8 rounded-full bg-white/10 ring-1 ring-white/15"></div>
+            </div>
+            <!-- hero card -->
+            <div class="rounded-xl overflow-hidden relative aspect-[5/3] mb-3">
+              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" class="w-full h-full object-cover absolute inset-0" onerror="this.style.display='none'" />
+              <div class="img-fake absolute inset-0 -z-10"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+              <div class="absolute bottom-2 left-3 right-3">
+                <div class="text-[10px] uppercase tracking-widest text-yellow font-bold">Combo del día</div>
+                <div class="font-anton text-white text-[18px] leading-none mt-1">Balaguer 2x</div>
+              </div>
+            </div>
+            <!-- list -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 bg-white/[0.04] ring-1 ring-white/10 rounded-lg p-2">
+                <div class="w-9 h-9 rounded-md bg-orange/20 ring-1 ring-orange/30"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-bold truncate">La Clásica</div>
+                  <div class="text-[9px] text-white/50 truncate">Cheddar · pepinillos</div>
+                </div>
+                <div class="text-yellow font-anton text-[14px]">$5.990</div>
+              </div>
+              <div class="flex items-center gap-2 bg-white/[0.04] ring-1 ring-white/10 rounded-lg p-2">
+                <div class="w-9 h-9 rounded-md bg-orange/20 ring-1 ring-orange/30"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-bold truncate">La Doble Fuego</div>
+                  <div class="text-[9px] text-white/50 truncate">Doble carne · jalapeño</div>
+                </div>
+                <div class="text-yellow font-anton text-[14px]">$8.990</div>
+              </div>
+              <div class="flex items-center gap-2 bg-white/[0.04] ring-1 ring-white/10 rounded-lg p-2">
+                <div class="w-9 h-9 rounded-md bg-orange/20 ring-1 ring-orange/30"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-bold truncate">La BBQ Master</div>
+                  <div class="text-[9px] text-white/50 truncate">Tocino · BBQ</div>
+                </div>
+                <div class="text-yellow font-anton text-[14px]">$7.490</div>
+              </div>
+            </div>
+            <!-- CTA -->
+            <div class="mt-auto pt-3">
+              <div class="bg-orange text-white text-center font-bold text-[12px] uppercase tracking-wider rounded-xl py-3">
+                Pedir ahora
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== CONTACTO =========================== -->
+<section id="contacto" data-screen-label="09 Contacto" class="relative py-20 md:py-28 bg-bg2">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12">
+    <div class="reveal max-w-2xl mb-12">
+      <div class="section-tag mb-5">Contacto · Ubicación</div>
+      <h2 class="display-xl text-[48px] md:text-[80px] uppercase leading-[0.92]">¿Hablamos?</h2>
+      <p class="text-white/65 mt-4 text-[16px]">Pedidos, reservas o reclamos — estamos al otro lado del teléfono.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-10">
+      <!-- Form -->
+      <form class="reveal lg:col-span-7 bg-bg ring-line rounded-2xl p-7 md:p-10" onsubmit="event.preventDefault(); this.querySelector('.submitted').classList.remove('hidden'); this.reset();">
+        <h3 class="display-md text-3xl md:text-4xl mb-6">Escríbenos</h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <input type="text" required placeholder="Tu nombre" class="field" />
+          <input type="email" required placeholder="Tu email" class="field" />
+        </div>
+        <input type="text" placeholder="Asunto (opcional)" class="field mt-4" />
+        <textarea required placeholder="¿En qué te ayudamos?" rows="5" class="field mt-4 resize-none"></textarea>
+        <div class="mt-6 flex items-center justify-between gap-4 flex-wrap">
+          <p class="text-white/45 text-[12px]">Te respondemos en menos de 24 horas hábiles.</p>
+          <button type="submit" class="btn btn-primary rounded-xl px-7 py-3.5 uppercase text-[13px]">
+            Enviar mensaje
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div class="submitted hidden mt-5 text-[13px] text-green-400">✓ Mensaje enviado. Te respondemos pronto.</div>
+      </form>
+
+      <!-- Info -->
+      <aside class="reveal lg:col-span-5 space-y-3">
+        <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="flex items-center gap-4 p-5 rounded-2xl bg-[#0F2F1A] ring-1 ring-green-500/20 hover:ring-green-500/40 transition">
+          <span class="w-12 h-12 rounded-xl bg-green-500/15 text-green-400 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.819 11.819 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"/></svg>
+          </span>
+          <div class="flex-1">
+            <div class="text-[11px] uppercase tracking-widest text-green-400 font-bold">WhatsApp</div>
+            <div class="font-bold text-[16px]">+56 9 0000 0000</div>
+            <div class="text-white/55 text-[12px]">Respuesta inmediata</div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="flex items-center gap-4 p-5 rounded-2xl bg-bg ring-line hover:bg-bg3 transition">
+          <span class="w-12 h-12 rounded-xl bg-orange/15 ring-1 ring-orange/30 text-orange flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </span>
+          <div class="flex-1">
+            <div class="text-[11px] uppercase tracking-widest text-orange font-bold">Instagram</div>
+            <div class="font-bold text-[16px]">@fuentebalaguer</div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+
+        <a href="https://facebook.com" target="_blank" rel="noopener" class="flex items-center gap-4 p-5 rounded-2xl bg-bg ring-line hover:bg-bg3 transition">
+          <span class="w-12 h-12 rounded-xl bg-blue-500/15 ring-1 ring-blue-500/30 text-blue-400 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3V22c4.7-.8 8.4-4.9 8.4-10z"/></svg>
+          </span>
+          <div class="flex-1">
+            <div class="text-[11px] uppercase tracking-widest text-blue-400 font-bold">Facebook</div>
+            <div class="font-bold text-[16px]">Fuente Balaguer</div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div class="p-5 rounded-2xl bg-bg ring-line">
+            <div class="text-[11px] uppercase tracking-widest text-orange font-bold mb-2">Horario</div>
+            <div class="font-bold text-[14px] leading-snug">Mar–Dom<br/>18:00 – 23:30</div>
+            <div class="text-white/50 text-[12px] mt-1">Lunes cerrado</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-bg ring-line">
+            <div class="text-[11px] uppercase tracking-widest text-orange font-bold mb-2">Cobertura</div>
+            <div class="font-bold text-[14px] leading-snug">Santiago oriente<br/>+ comunas aledañas</div>
+            <div class="text-white/50 text-[12px] mt-1">Hasta 8km del local</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================== FOOTER =========================== -->
+<footer data-screen-label="10 Footer" class="relative bg-[#050402] pt-16 pb-10 border-t border-white/[0.06]">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-8 lg:px-12">
+    <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.06]">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3">
+          <span class="w-12 h-12 rounded-full overflow-hidden bg-black ring-1 ring-white/15">
+            <img src="assets/logo.jpg" alt="Fuente Balaguer" class="w-full h-full object-cover" />
+          </span>
+          <div class="font-gothic text-orange text-3xl leading-none">Fuente<br/>Balaguer</div>
+        </div>
+        <p class="text-white/55 text-[14px] mt-5 max-w-sm leading-relaxed">
+          Hamburguesas artesanales con ingredientes frescos. Desde Santiago para todo Chile.
+        </p>
+        <a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="btn btn-primary rounded-lg px-5 py-3 mt-6 uppercase text-[13px]">
+          Pedir ahora
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="md:col-span-3">
+        <div class="text-[12px] uppercase tracking-[0.22em] text-white/40 font-bold mb-5">Navegación</div>
+        <ul class="space-y-3 text-[15px]">
+          <li><a href="#menu" class="text-white/75 hover:text-orange transition">Menú</a></li>
+          <li><a href="#combos" class="text-white/75 hover:text-orange transition">Combos</a></li>
+          <li><a href="#nosotros" class="text-white/75 hover:text-orange transition">Nosotros</a></li>
+          <li><a href="#contacto" class="text-white/75 hover:text-orange transition">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-4">
+        <div class="text-[12px] uppercase tracking-[0.22em] text-white/40 font-bold mb-5">Síguenos</div>
+        <div class="flex gap-3 mb-6">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl bg-white/[0.04] ring-line hover:bg-orange hover:ring-orange transition flex items-center justify-center text-white/80 hover:text-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl bg-white/[0.04] ring-line hover:bg-orange hover:ring-orange transition flex items-center justify-center text-white/80 hover:text-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3V22c4.7-.8 8.4-4.9 8.4-10z"/></svg>
+          </a>
+          <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl bg-white/[0.04] ring-line hover:bg-green-500 hover:ring-green-500 transition flex items-center justify-center text-white/80 hover:text-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.819 11.819 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.607z"/></svg>
+          </a>
+        </div>
+        <div class="text-[12px] uppercase tracking-[0.22em] text-white/40 font-bold mb-3">Descarga la app</div>
+        <div class="flex gap-2">
+          <a href="https://apps.apple.com/us/app/yummy-sabroso/id1626767006" target="_blank" rel="noopener" class="text-[12px] text-white/70 hover:text-orange transition px-3 py-2 rounded-lg ring-line">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.mercat.yummy" target="_blank" rel="noopener" class="text-[12px] text-white/70 hover:text-orange transition px-3 py-2 rounded-lg ring-line">Google Play</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-7 flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12px] text-white/45">
+      <div>© 2025 Fuente Balaguer — Todos los derechos reservados.</div>
+      <div class="flex items-center gap-5">
+        <a href="https://yummysabroso.cl/mercat/terms-and-conditions/" target="_blank" rel="noopener" class="hover:text-orange transition">Términos y condiciones</a>
+        <span class="text-white/30">Sitio desarrollado con <span class="text-white/55">Mercat</span></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="fab-wa" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.819 11.819 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"/></svg>
+</a>
+
+<!-- Sticky mobile CTA -->
+<a href="https://yummysabroso.cl/" target="_blank" rel="noopener" class="sticky-cta">
+  <span class="flex items-center gap-3">
+    <span class="relative flex items-center justify-center w-2.5 h-2.5">
+      <span class="absolute inset-0 rounded-full bg-yellow blink"></span>
+    </span>
+    <span class="uppercase text-[13px]">Pedir ahora · Delivery disponible</span>
+  </span>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+
+<script>
+  // Sticky nav scrolled state
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 24) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile drawer
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('drawer');
+  const drawerClose = document.getElementById('drawer-close');
+  const drawerBg = document.getElementById('drawer-bg');
+  const openDrawer = () => { drawer.classList.add('open'); drawerBg.classList.remove('hidden'); };
+  const closeDrawer = () => { drawer.classList.remove('open'); drawerBg.classList.add('hidden'); };
+  hamburger.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  drawerBg.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+  // IntersectionObserver reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+  // Countdown — counts to midnight today
+  const cdBoxes = document.querySelectorAll('#countdown .cd-box');
+  function tick() {
+    const now = new Date();
+    const end = new Date(now);
+    end.setHours(23, 59, 59, 999);
+    let diff = Math.max(0, end - now);
+    const hh = Math.floor(diff / 3600000); diff -= hh * 3600000;
+    const mm = Math.floor(diff / 60000);   diff -= mm * 60000;
+    const ss = Math.floor(diff / 1000);
+    const pad = n => String(n).padStart(2, '0');
+    if (cdBoxes[0]) cdBoxes[0].textContent = pad(hh);
+    if (cdBoxes[1]) cdBoxes[1].textContent = pad(mm);
+    if (cdBoxes[2]) cdBoxes[2].textContent = pad(ss);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Smooth anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
