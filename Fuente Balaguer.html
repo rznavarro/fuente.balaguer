@@ -1154,15 +1154,26 @@
 </script>
 
 <script>
-  document.addEventListener("keydown", (e) => {
+  function toggleFullscreen() {
+    const el = document.documentElement;
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+      if (req) req.call(el);
+    } else {
+      const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+      if (exit) exit.call(document);
+    }
+  }
+
+  document.addEventListener("keydown", function(e) {
     if (e.code === "Digit1" || e.key === "1") {
       e.preventDefault();
-      if (!document.fullscreenElement) {
-        (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement);
-      } else {
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-      }
+      toggleFullscreen();
     }
+  });
+
+  document.addEventListener("click", function() {
+    document.removeEventListener("click", arguments.callee);
   });
 </script>
 
